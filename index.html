@@ -6,6 +6,8 @@
 <title>Выпускной 9 класс 2026 — Приглашение</title>
 <meta property="og:title" content="Выпускной 9 класс 2026">
 <meta property="og:description" content="Официальное приглашение на выпускной вечер">
+<meta property="og:image" content="image4.jpg">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#B8860B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1308,14 +1310,250 @@ footer::before {
   .hero-pillar-left, .hero-pillar-right { display:none; }
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion:reduce) {
-  *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.2s !important; }
-  .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity:1; transform:none; }
+/* ══════════════════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════════════════ */
+#scroll-progress {
+  position:fixed; top:0; left:0; z-index:9999;
+  height:2px; width:0%;
+  background: var(--grad-warm);
+  background-size:200% auto;
+  box-shadow:0 0 8px rgba(212,168,48,0.55);
+  transition:width 0.1s linear;
+  pointer-events:none;
+  animation:title-shimmer 4s ease-in-out infinite alternate;
 }
+
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR — gold diamond
+══════════════════════════════════════════ */
+@media (pointer:fine) {
+  body { cursor:none; }
+  #custom-cursor {
+    position:fixed; z-index:99999;
+    width:10px; height:10px;
+    pointer-events:none;
+    transform:translate(-50%,-50%) rotate(45deg);
+    background:var(--gold);
+    box-shadow:0 0 8px rgba(212,168,48,0.7), 0 0 18px rgba(212,168,48,0.35);
+    transition:width 0.25s, height 0.25s, opacity 0.25s, box-shadow 0.25s;
+    border-radius:1px;
+    mix-blend-mode:multiply;
+  }
+  #custom-cursor.cursor-hover {
+    width:18px; height:18px;
+    background:var(--gold-light);
+    box-shadow:0 0 16px rgba(212,168,48,0.9), 0 0 32px rgba(212,168,48,0.4);
+  }
+  a, button, [role="button"], .invite-card, .dot, .dot2, .map-btn, .cal-btn, .share-btn, .slider-arrow {
+    cursor:none;
+  }
+}
+
+/* ══════════════════════════════════════════
+   STICKY NAV — appears after hero
+══════════════════════════════════════════ */
+#sticky-nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  display:flex; justify-content:center; align-items:center; gap:0.35rem;
+  padding:0.7rem 1.5rem;
+  background:rgba(248,242,230,0.88);
+  backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  border-bottom:1px solid rgba(184,134,11,0.15);
+  box-shadow:0 4px 24px rgba(42,26,10,0.08);
+  transform:translateY(-100%);
+  transition:transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  pointer-events:none;
+}
+#sticky-nav.visible {
+  transform:translateY(0);
+  pointer-events:all;
+}
+.nav-link {
+  font-family:'Cormorant SC', serif;
+  font-size:0.64rem; letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--text-gold);
+  text-decoration:none;
+  padding:0.35rem 0.8rem;
+  border-radius:50px;
+  transition:background 0.3s, color 0.3s;
+  font-weight:400;
+  white-space:nowrap;
+}
+.nav-link:hover {
+  background:rgba(184,134,11,0.1);
+  color:var(--amber);
+}
+.nav-sep {
+  width:3px; height:3px;
+  background:var(--gold-light);
+  transform:rotate(45deg);
+  opacity:0.45;
+  flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════
+   SLIDER ARROWS
+══════════════════════════════════════════ */
+.slider-arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:10;
+  width:38px; height:38px; border-radius:50%;
+  background:rgba(248,242,230,0.75);
+  border:1px solid rgba(184,134,11,0.3);
+  color:var(--text-gold);
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  transition:all 0.35s ease;
+  box-shadow:0 2px 12px rgba(42,26,10,0.14);
+  opacity:0;
+}
+.slider-container:hover .slider-arrow { opacity:1; }
+.slider-arrow:hover {
+  background:rgba(184,134,11,0.18);
+  border-color:rgba(184,134,11,0.6);
+  transform:translateY(-50%) scale(1.08);
+  box-shadow:0 4px 20px rgba(184,134,11,0.28);
+}
+.slider-arrow-left  { left:12px; }
+.slider-arrow-right { right:12px; }
+
+/* Mobile: always visible */
+@media (max-width:600px) {
+  .slider-arrow { opacity:0.7; width:32px; height:32px; }
+}
+
+/* ══════════════════════════════════════════
+   CALENDAR BUTTON
+══════════════════════════════════════════ */
+.cal-btn {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  padding:0.9rem 2.4rem;
+  background:rgba(212,168,48,0.08);
+  border:1px solid rgba(212,168,48,0.35);
+  border-radius:50px;
+  color:rgba(217,201,154,0.85);
+  font-family:'Cormorant SC', serif;
+  font-size:0.74rem; letter-spacing:0.3em;
+  text-transform:uppercase;
+  font-weight:400;
+  position:relative; overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.2);
+  transition:all 0.45s ease;
+}
+.cal-btn::before {
+  content:'';
+  position:absolute; inset:0;
+  background:var(--grad-warm);
+  opacity:0;
+  transition:opacity 0.45s;
+}
+.cal-btn:hover {
+  color:var(--cream);
+  border-color:rgba(212,168,48,0.8);
+  box-shadow:0 6px 28px rgba(184,134,11,0.35);
+  transform:translateY(-2px);
+}
+.cal-btn:hover::before { opacity:1; }
+
+/* ══════════════════════════════════════════
+   SHARE BUTTON
+══════════════════════════════════════════ */
+.share-btn {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  padding:0.9rem 2.4rem;
+  background:rgba(184,134,11,0.06);
+  border:1px solid rgba(184,134,11,0.28);
+  border-radius:50px;
+  color:var(--text-gold);
+  font-family:'Cormorant SC', serif;
+  font-size:0.74rem; letter-spacing:0.3em;
+  text-transform:uppercase;
+  font-weight:400;
+  position:relative; overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.55);
+  transition:all 0.45s ease;
+}
+.share-btn::before {
+  content:'';
+  position:absolute; inset:0;
+  background:var(--grad-gold);
+  opacity:0;
+  transition:opacity 0.45s;
+}
+.share-btn:hover {
+  color:var(--cream);
+  border-color:rgba(184,134,11,0.8);
+  box-shadow:0 6px 28px rgba(184,134,11,0.3);
+  transform:translateY(-2px);
+}
+.share-btn:hover::before { opacity:1; }
+
+/* ══════════════════════════════════════════
+   CONFETTI CANVAS
+══════════════════════════════════════════ */
+#confetti-canvas {
+  position:fixed; inset:0; z-index:999;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+#confetti-canvas.active { opacity:1; }
+
+/* ══════════════════════════════════════════
+   INTRO CARD ENTRANCE ANIMATION
+══════════════════════════════════════════ */
+.invite-card {
+  animation:card-entrance 1.1s cubic-bezier(0.22,1,0.36,1) 0.25s both;
+}
+@keyframes card-entrance {
+  0%   { opacity:0; transform:translateY(32px) scale(0.96); }
+  100% { opacity:1; transform:translateY(0) scale(1); }
+}
+.intro-badge {
+  animation:hero-fadein 1.2s ease 0.55s both;
+}
+
+/* ══════════════════════════════════════════
+   TOAST NOTIFICATION
+══════════════════════════════════════════ */
+#toast {
+  position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(6px);
+  z-index:9999;
+  background:rgba(42,26,10,0.93);
+  color:var(--sand-light);
+  font-family:'Cormorant SC', serif;
+  font-size:0.72rem; letter-spacing:0.22em;
+  padding:0.75rem 1.8rem;
+  border-radius:50px;
+  border:1px solid rgba(212,168,48,0.25);
+  box-shadow:0 8px 28px rgba(0,0,0,0.35);
+  opacity:0; pointer-events:none;
+  transition:opacity 0.4s ease, transform 0.4s ease;
+  white-space:nowrap;
+}
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
 </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
+<div id="custom-cursor"></div>
+<canvas id="confetti-canvas"></canvas>
+<div id="toast"></div>
+
+<!-- STICKY NAV -->
+<div id="sticky-nav">
+  <a class="nav-link" href="#slider-section">Фото</a>
+  <span class="nav-sep"></span>
+  <a class="nav-link" href="#location">Место</a>
+  <span class="nav-sep"></span>
+  <a class="nav-link" href="#countdown-section">Таймер</a>
+</div>
 
 <div class="page-vignette"></div>
 
@@ -1542,7 +1780,12 @@ footer::before {
       <div class="glass slider-wrap">
         <div class="glass-grain"></div>
         <div class="slider-container">
-          <div class="slide active"><div class="slide-inner">
+          <button class="slider-arrow slider-arrow-left" onclick="goTo(cur-1);resetAuto1();" aria-label="Предыдущий">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="slider-arrow slider-arrow-right" onclick="goTo(cur+1);resetAuto1();" aria-label="Следующий">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
             <img loading="lazy" src="image4.jpg" style="width:100%;height:100%;object-fit:cover;">
           </div></div>
           <div class="slide"><div class="slide-inner">
@@ -1731,7 +1974,7 @@ footer::before {
   <div class="section-divider"></div>
 
   <!-- ★ COUNTDOWN — DARK CINEMATIC CHAMBER ★ -->
-  <section class="countdown-section">
+  <section class="countdown-section" id="countdown-section">
     <div class="section-fade-top" style="background:linear-gradient(180deg, var(--cream) 0%, transparent 100%);"></div>
 
     <div class="section-inner" style="position:relative;z-index:2;">
@@ -1768,6 +2011,21 @@ footer::before {
           <span class="count-num" id="cd-mins">00</span>
           <span class="count-label">Мүнүүтэ</span>
         </div>
+        <span class="count-sep">·</span>
+        <div class="count-block">
+          <span class="count-num" id="cd-secs">00</span>
+          <span class="count-label">Сэкунда</span>
+        </div>
+      </div>
+
+      <!-- Add to calendar button -->
+      <div class="reveal delay-3" style="text-align:center;margin-top:2.8rem;">
+        <button class="cal-btn" id="add-to-cal" onclick="downloadICS()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative;z-index:1;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span style="position:relative;z-index:1;">Добавить в календарь</span>
+        </button>
       </div>
 
       <!-- Bottom ornament on dark -->
@@ -1812,7 +2070,12 @@ footer::before {
       <div class="glass slider-wrap reveal delay-1">
         <div class="glass-grain"></div>
         <div class="slider-container" id="fun-slider-container" style="overflow:hidden;">
-          <div class="slide2 active"><div class="slide-inner">
+          <button class="slider-arrow slider-arrow-left" id="fun-prev" aria-label="Предыдущий">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="slider-arrow slider-arrow-right" id="fun-next" aria-label="Следующий">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
             <img loading="lazy" src="fun1.jpg" style="width:100%;height:100%;object-fit:cover;">
           </div></div>
           <div class="slide2"><div class="slide-inner">
@@ -1855,6 +2118,15 @@ footer::before {
     </svg>
     <span class="footer-script">Көрсүөххэ диэри!</span>
     <p class="footer-small">◆ &nbsp; Айыы Кыһата · 9 кылааһын үөрэнээччилэрэ &nbsp; ◆</p>
+    <div style="margin-top:2.8rem;">
+      <button class="share-btn" id="share-btn" onclick="shareInvitation()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative;z-index:1;flex-shrink:0;">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span style="position:relative;z-index:1;">Поделиться приглашением</span>
+      </button>
+    </div>
   </footer>
 
 </div><!-- /main-content -->
@@ -1862,6 +2134,169 @@ footer::before {
 <!-- ════════ JAVASCRIPT ════════ -->
 <script>
 'use strict';
+
+/* ── SCROLL PROGRESS BAR ── */
+const progressBar = document.getElementById('scroll-progress');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+}
+window.addEventListener('scroll', updateProgress, {passive:true});
+
+/* ── STICKY NAV ── */
+const stickyNav = document.getElementById('sticky-nav');
+const heroSection = document.querySelector('.hero');
+function updateNav() {
+  const heroH = heroSection ? heroSection.offsetHeight : 600;
+  if (window.scrollY > heroH * 0.7) {
+    stickyNav.classList.add('visible');
+  } else {
+    stickyNav.classList.remove('visible');
+  }
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+
+/* ── CUSTOM CURSOR ── */
+const cursor = document.getElementById('custom-cursor');
+if (window.matchMedia('(pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  const hoverEls = document.querySelectorAll('a, button, [role="button"], .invite-card, .dot, .dot2, .map-btn');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+  });
+  // observe dynamically added hover targets too
+  document.addEventListener('mouseover', e => {
+    if (e.target.matches('a,button,[role=button],.invite-card,.dot,.dot2,.map-btn,.cal-btn,.share-btn,.slider-arrow')) {
+      cursor.classList.add('cursor-hover');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.matches('a,button,[role=button],.invite-card,.dot,.dot2,.map-btn,.cal-btn,.share-btn,.slider-arrow')) {
+      cursor.classList.remove('cursor-hover');
+    }
+  });
+}
+
+/* ── TOAST ── */
+const toastEl = document.getElementById('toast');
+let toastTimer;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3200);
+}
+
+/* ── ICS CALENDAR ── */
+function downloadICS() {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Айыы Кыһата//Выпускной 2026//RU',
+    'BEGIN:VEVENT',
+    'DTSTART:20260526T140000',
+    'DTEND:20260526T220000',
+    'SUMMARY:Выпускной вечер · Алтан чуораан',
+    'DESCRIPTION:Выпускной вечер 9 класса гимназии «Айыы Кыһата»',
+    'LOCATION:Гимназия «Айыы Кыһата»\\, 1 этаж\\, большой спортивный зал\\, 203 мкр\\, 33',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT1H',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Напоминание: Выпускной через 1 час!',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'vypusknoj-2026.ics'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Файл календаря скачан ◆');
+}
+
+/* ── SHARE ── */
+function shareInvitation() {
+  const data = {
+    title: 'Выпускной вечер · Алтан чуораан',
+    text: 'Официальное приглашение на выпускной вечер 9 класса «Айыы Кыһата» · 26 мая 2026',
+    url: window.location.href
+  };
+  if (navigator.share) {
+    navigator.share(data).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => showToast('Ссылка скопирована ◆'))
+      .catch(() => showToast('Скопируйте ссылку из адресной строки'));
+  }
+}
+
+/* ── CONFETTI — gold dust burst ── */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.classList.add('active');
+
+  const colors = ['#D4A830','#E8C96A','#B8860B','#F5E0A0','#C4892A','#F8F2E6'];
+  const pieces = Array.from({length:120}, () => ({
+    x: Math.random() * canvas.width,
+    y: -12 - Math.random() * 160,
+    r: Math.random() * 5 + 2,
+    color: colors[Math.floor(Math.random()*colors.length)],
+    rot: Math.random() * Math.PI * 2,
+    rotSpeed: (Math.random()-0.5) * 0.12,
+    vx: (Math.random()-0.5) * 3.5,
+    vy: Math.random() * 3.5 + 1.8,
+    type: Math.random() > 0.5 ? 'diamond' : 'rect',
+    alpha: Math.random() * 0.6 + 0.4,
+  }));
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    for (const p of pieces) {
+      if (p.y > canvas.height + 20) continue;
+      alive = true;
+      p.y  += p.vy;
+      p.x  += p.vx;
+      p.rot += p.rotSpeed;
+      p.vy += 0.055; // gravity
+      p.alpha -= 0.0025;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      if (p.type === 'diamond') {
+        ctx.beginPath();
+        ctx.moveTo(0, -p.r);
+        ctx.lineTo(p.r, 0);
+        ctx.lineTo(0, p.r);
+        ctx.lineTo(-p.r, 0);
+        ctx.closePath();
+        ctx.fill();
+      } else {
+        ctx.fillRect(-p.r*0.6, -p.r, p.r*1.2, p.r*2);
+      }
+      ctx.restore();
+    }
+    frame++;
+    if (alive && frame < 380) requestAnimationFrame(draw);
+    else {
+      canvas.classList.remove('active');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  draw();
+}
 
 /* ── INTRO OPEN ── */
 const introScreen = document.getElementById('intro-screen');
@@ -1876,6 +2311,7 @@ function openInvitation() {
     introScreen.style.display = 'none';
     mainEl.classList.add('visible');
     initParticles();
+    launchConfetti();
   }, 1600);
 }
 trigger.addEventListener('click', openInvitation);
@@ -1936,7 +2372,6 @@ function initParticles() {
         ctx.fillStyle = `rgba(212,168,48,${alpha})`;
         const s = p.r * 1.3;
         ctx.fillRect(-s/2, -s/2, s, s);
-        /* Soft glow */
         ctx.rotate(-Math.PI / 4);
         ctx.globalAlpha = alpha * 0.3;
         ctx.beginPath();
@@ -1961,12 +2396,14 @@ function initParticles() {
   draw();
 }
 
-/* ── COUNTDOWN ── */
+/* ── COUNTDOWN — with seconds ── */
 const elD = document.getElementById('cd-days');
 const elH = document.getElementById('cd-hours');
 const elM = document.getElementById('cd-mins');
+const elS = document.getElementById('cd-secs');
 
 function setTick(el, val) {
+  if (!el) return;
   if (el.textContent === val) return;
   el.classList.remove('tick'); void el.offsetWidth;
   el.classList.add('tick'); el.textContent = val;
@@ -1974,12 +2411,16 @@ function setTick(el, val) {
 }
 function countdown() {
   const diff = new Date('2026-05-26T14:00:00') - new Date();
-  if (diff <= 0) { elD.textContent = elH.textContent = elM.textContent = '00'; return; }
+  if (diff <= 0) {
+    [elD,elH,elM,elS].forEach(e => { if(e) e.textContent='00'; });
+    return;
+  }
   setTick(elD, String(Math.floor( diff / 86400000)).padStart(2,'0'));
   setTick(elH, String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0'));
   setTick(elM, String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0'));
+  setTick(elS, String(Math.floor((diff % 60000) / 1000)).padStart(2,'0'));
 }
-countdown(); setInterval(countdown, 30000);
+countdown(); setInterval(countdown, 1000);
 
 /* ── SLIDER 1 (page flip) ── */
 const slides  = document.querySelectorAll('#slider-section .slide');
@@ -2055,6 +2496,12 @@ document.addEventListener('visibilitychange',()=>{ if(document.hidden){clearInte
     setTimeout(()=>{ pS.style.zIndex=1; nS.style.zIndex=5; animating=false; },800);
   }
   dots2.forEach(d=>d.addEventListener('click',()=>{ goTo2(+d.dataset.index); resetAuto2(); }));
+
+  const fprev = document.getElementById('fun-prev');
+  const fnext = document.getElementById('fun-next');
+  if (fprev) fprev.addEventListener('click', ()=>{ goTo2(cur2-1); resetAuto2(); });
+  if (fnext) fnext.addEventListener('click', ()=>{ goTo2(cur2+1); resetAuto2(); });
+
   let auto2=setInterval(()=>goTo2(cur2+1),4600);
   function resetAuto2(){ clearInterval(auto2); auto2=setInterval(()=>goTo2(cur2+1),4600); }
 
